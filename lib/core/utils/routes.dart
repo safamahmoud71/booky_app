@@ -1,3 +1,4 @@
+
 import 'package:booky_app/features/home/presentation/views/home_view.dart';
 import 'package:booky_app/features/home/presentation/views/widgets/book_details_view.dart';
 import 'package:booky_app/features/search/presentaion/view/search_view.dart';
@@ -18,7 +19,8 @@ class AppRouters {
       GoRoute(path: homeView, builder: (context, state) => const HomeView()),
       GoRoute(
           path: bookDetails,
-          builder: (context, state) => const BookDetailsView())
+
+          builder: (context, state) =>  BookDetailsView(index: 0))
     ],
   );
 }

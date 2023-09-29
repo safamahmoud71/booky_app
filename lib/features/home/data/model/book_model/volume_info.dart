@@ -15,7 +15,7 @@ class VolumeInfo {
   int? pageCount;
   String? printType;
   List<String>? categories;
-  int? averageRating;
+  int averageRating;
   int? ratingsCount;
   String? maturityRating;
   bool? allowAnonLogging;
@@ -38,7 +38,7 @@ class VolumeInfo {
     this.pageCount,
     this.printType,
     this.categories,
-    this.averageRating,
+    required this.averageRating,
     this.ratingsCount,
     this.maturityRating,
     this.allowAnonLogging,
@@ -67,7 +67,7 @@ class VolumeInfo {
         pageCount: json['pageCount'] as int?,
         printType: json['printType'] as String?,
         categories:(json['categories'] as List<dynamic>?)?.map((category)=>category.toString()).toList() ,
-        averageRating: json['averageRating'] as int?,
+        averageRating: json['averageRating'] as int,
         ratingsCount: json['ratingsCount'] as int?,
         maturityRating: json['maturityRating'] as String?,
         allowAnonLogging: json['allowAnonLogging'] as bool?,

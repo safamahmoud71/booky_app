@@ -15,9 +15,12 @@ class BookEntity {
   final num? rate;
    @HiveField(5)
   final String? authorName;
+   @HiveField(6)
+   final num? averageRate;
 
   BookEntity(
       {required this.title,
+        required this.averageRate,
       required this.bookID,
       required this.price,
       required this.image,

@@ -1,19 +1,23 @@
-
-import 'package:booky_app/core/utils/routes.dart';
+import 'package:booky_app/core/utils/colors.dart';
 import 'package:booky_app/core/utils/styles.dart';
+import 'package:booky_app/features/home/presentation/views/widgets/book_details_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'book_rate.dart';
 
 class BookListViewItem extends StatelessWidget {
-  const BookListViewItem({super.key, required this.image , required this.title,
-  required this.rate, required this.price, required this.author, required this.index});
+  const BookListViewItem(
+      {super.key,
+      required this.image,
+      required this.title,
+      required this.rate,
+      required this.author,
+      required this.index});
 
   final String image;
   final String title;
   final String author;
-  final num price;
+
   final num rate;
   final int index;
 
@@ -21,7 +25,11 @@ class BookListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouters.bookDetails);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDetailsView(index: index)),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -33,9 +41,12 @@ class BookListViewItem extends StatelessWidget {
               width: 71,
               child: AspectRatio(
                 aspectRatio: 2.5 / 4,
-                child:ClipRRect(
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: CachedNetworkImage( imageUrl: image, fit: BoxFit.fill,),
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -48,7 +59,7 @@ class BookListViewItem extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width * .5,
-                    child:  Text(
+                    child: Text(
                       title,
                       style: TextStyles.textStyle20,
                       maxLines: 2,
@@ -58,7 +69,7 @@ class BookListViewItem extends StatelessWidget {
                     height: 3,
                   ),
                   Text(
-                   author,
+                    author,
                     style:
                         TextStyles.textStyle14.copyWith(color: Colors.white70),
                     maxLines: 2,
@@ -66,17 +77,18 @@ class BookListViewItem extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                   Row(
+                  Row(
                     children: [
-                      Text(
-                        '$price €',
-                        style: TextStyles.textStyle20,
-                      ),
-                    const  SizedBox(
+                      const Text('Free', style: TextStyles.textStyle20),
+                      const SizedBox(
                         width: 40,
                       ),
-                      BookRate(horizontal: MainAxisAlignment.start, rate: rate),
+                      BookRate(
+                          horizontal: MainAxisAlignment.start, index: index),
                     ],
+                  ),
+                  const Divider(
+                    color: AppColors.grey,
                   )
                 ],
               ),

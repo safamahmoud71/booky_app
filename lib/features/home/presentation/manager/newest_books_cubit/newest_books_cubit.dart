@@ -20,6 +20,7 @@ class NewestBooksCubit extends Cubit<NewestBooksState> {
       print(failure.message.toString());
     emit(NewestBooksFailure(failure.message.toString()));
     }, (books) {
+      print(' rate : ${books.first.averageRate}');
       emit(NewestBooksSuccess(books));
 
     });

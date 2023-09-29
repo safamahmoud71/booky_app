@@ -1,5 +1,4 @@
 import 'package:booky_app/features/home/domain/entities/book_entity.dart';
-import 'package:booky_app/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:booky_app/features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +23,7 @@ class ListViewBestSellerBloc extends StatelessWidget {
               }
             else
               {
-                return Center(child: const CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
         }
@@ -47,7 +46,7 @@ class ListViewBestSeller extends StatelessWidget {
         itemBuilder: (context, index) =>  Padding(
           padding:const EdgeInsets.only(bottom: 10.0),
           child: BookListViewItem( image:books[index].image??'' ,author: books[index].authorName??'',
-          title: books[index].title??'', price: books[index].price??0,rate: books[index].rate?? 54, index: 1,
+          title: books[index].title??'',rate: books[index].averageRate?? 6, index: index,
           ),
         ));
   }
