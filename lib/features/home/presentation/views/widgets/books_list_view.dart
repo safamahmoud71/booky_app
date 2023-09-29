@@ -62,7 +62,7 @@ class _BooksListViewState extends State<BooksListView> {
           scrollDirection: Axis.horizontal,
           itemCount: widget.books.length,
           itemBuilder: (context, index) =>
-              FeatureBookContainer(image: widget.books[index].image ?? '', index: index),
+              FeatureBookContainer(image: widget.books[index].image ?? 'Image Error', index: index),
         ),
       ),
     );

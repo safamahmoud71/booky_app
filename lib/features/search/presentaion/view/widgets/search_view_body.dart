@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import 'custom_search_text_field.dart';
@@ -11,15 +9,20 @@ class SearchViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(30),
-            child: SearchTextField(),
-          ),
-          Expanded(child: SearchListView())
-        ],
-      ),
-    );
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(30),
+                    child: SearchTextField(),
+                  ),
+                  Expanded(child: SearchListView())
+                ],
+              ),
+            );
+
+
+
+
+
   }
 }

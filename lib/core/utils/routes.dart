@@ -20,7 +20,7 @@ class AppRouters {
       GoRoute(
           path: bookDetails,
 
-          builder: (context, state) =>  BookDetailsView(index: 0))
+          builder: (context, state) =>  const BookDetailsView(index: 0))
     ],
   );
 }
