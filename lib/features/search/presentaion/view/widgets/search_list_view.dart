@@ -10,7 +10,7 @@ class SearchListView extends StatelessWidget {
         itemCount: 10,
         itemBuilder: (context, index) => const Padding(
               padding: EdgeInsets.only(bottom: 10.0),
-              child: BookListViewItem(),
+             // child: BookListViewItem(),
             ));
   }
 }

@@ -2,8 +2,9 @@ import 'package:booky_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class BookRate extends StatelessWidget {
-  const BookRate({super.key, required this.horizontal});
+  const BookRate({super.key, required this.horizontal, required this.rate});
   final MainAxisAlignment horizontal;
+  final num rate ;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,19 +17,12 @@ class BookRate extends StatelessWidget {
         const SizedBox(
           width: 6,
         ),
-        const Text(
-          "4.8",
+         Text(
+          '$rate',
           style: TextStyles.textStyle16,
         ),
-        const SizedBox(
-          width: 6,
-        ),
-        Text(
-          "(2390)",
-          style: TextStyles.textStyle14.copyWith(
-            color: const Color(0xff707070),
-          ),
-        ),
+
+
       ],
     );
   }

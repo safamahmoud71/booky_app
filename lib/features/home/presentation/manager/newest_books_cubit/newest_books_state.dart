@@ -12,7 +12,12 @@ class NewestBooksSuccess extends NewestBooksState {
 
   NewestBooksSuccess(this.books);
 }
+class NewestBooksPaginationFailure extends NewestBooksState{
+  final String message;
 
+  NewestBooksPaginationFailure(this.message);
+}
+class NewestBooksPaginationLoading extends NewestBooksState{}
 class NewestBooksFailure extends NewestBooksState {
   final String message;
 

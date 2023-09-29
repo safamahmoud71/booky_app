@@ -5,7 +5,7 @@ import 'package:booky_app/features/home/domain/entities/book_entity.dart';
 import 'package:hive/hive.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<BookEntity>> fetchFeatureBooks();
+  Future<List<BookEntity>> fetchFeatureBooks({int pageNumber =0});
   Future<List<BookEntity>> fetchNewestBooks();
 }
 
@@ -15,13 +15,12 @@ class HomeRemoteDataSourceImplementation extends HomeRemoteDataSource {
   HomeRemoteDataSourceImplementation(this.apiServices);
 
   @override
-  Future<List<BookEntity>> fetchFeatureBooks() async {
+  Future<List<BookEntity>> fetchFeatureBooks({int pageNumber =0}) async {
     var data = await apiServices.get(
-        endPoint: 'volumes?Filtering=free-ebooks&q=programming');
+        endPoint: 'volumes?Filtering=free-ebooks&q=programming&startIndex=${pageNumber*10}');
     List<BookEntity> books = getBooks(data);
-    print(books.length);
-    print(data.length);
-    // saveDataToBox(books, kFeaturedBox);
+
+     saveDataToBox(books, kFeaturedBox);
     return books;
   }
 
@@ -30,8 +29,8 @@ class HomeRemoteDataSourceImplementation extends HomeRemoteDataSource {
     var data = await apiServices.get(
         endPoint: 'volumes?Filtering=free-ebooks&sorting=newest&q=programming');
     List<BookEntity> books = getBooks(data);
-    // saveDataToBox(books, kNewestBox);
-    print(books.length);
+     saveDataToBox(books, kNewestBox);
+
     return books;
   }
 
@@ -44,7 +43,7 @@ class HomeRemoteDataSourceImplementation extends HomeRemoteDataSource {
     return books;
   }
 }
-// void saveDataToBox(List<BookEntity> books, String boxName) {
-//   var box = Hive.box(boxName);
-//   box.addAll(books);
-// }
+void saveDataToBox(List<BookEntity> books, String boxName) {
+  var box = Hive.box<BookEntity>(boxName);
+  box.addAll(books);
+}

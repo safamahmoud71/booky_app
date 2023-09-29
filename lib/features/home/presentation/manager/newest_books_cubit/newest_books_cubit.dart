@@ -7,16 +7,21 @@ import '../../../domain/entities/book_entity.dart';
 part 'newest_books_state.dart';
 
 class NewestBooksCubit extends Cubit<NewestBooksState> {
-  NewestBooksCubit(this.fetchNewestBooks) : super(NewestBooksInitial());
-  final FetchNewestBooks fetchNewestBooks;
+  NewestBooksCubit(this.newestBooksUseCase) : super(NewestBooksInitial());
+  final FetchNewestBooksUseCase newestBooksUseCase;
+
+
   Future<void> newestBooks() async {
-    var result = await fetchNewestBooks.call();
-    result.fold((l) {
-      print(result);
-      emit(NewestBooksFailure(l.toString()));
+
+
+
+    var result = await newestBooksUseCase.call();
+    result.fold((failure) {
+      print(failure.message.toString());
+    emit(NewestBooksFailure(failure.message.toString()));
     }, (books) {
       emit(NewestBooksSuccess(books));
-      print('book==> $books');
+
     });
   }
 }

@@ -5,14 +5,15 @@ import 'package:dartz/dartz.dart';
 
 import '../repo/home_repo.dart';
 
-class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, NoParameter> {
+class FetchFeaturedBooksUseCase extends UseCase<List<BookEntity>, int> {
   final HomeRepo homeRepo;
   FetchFeaturedBooksUseCase(this.homeRepo);
 
   @override
-  Future<Either<Failure, List<BookEntity>>> call([NoParameter? p]) async {
+  Future<Either<Failure, List<BookEntity>>> call([int pageNumber =0]) async {
     // TODO: implement call
 
-    return await homeRepo.fetchFeatureBooks();
+    return await homeRepo.fetchFeatureBooks(pageNumber: pageNumber);
   }
+
 }

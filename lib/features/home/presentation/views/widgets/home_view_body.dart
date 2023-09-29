@@ -1,4 +1,5 @@
 import 'package:booky_app/core/utils/styles.dart';
+import 'package:booky_app/features/home/domain/entities/book_entity.dart';
 import 'package:booky_app/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -35,24 +36,47 @@ class HomeViewBody extends StatelessWidget {
           ),
         ),
         SliverFillRemaining(
-          child: BestSellerListView(),
+          child: ListViewBestSellerBloc(),
         )
       ],
     );
   }
 }
 
-class FeaturedBooksListViewBlocBuilder extends StatelessWidget {
+class FeaturedBooksListViewBlocBuilder extends StatefulWidget {
   const FeaturedBooksListViewBlocBuilder({
     super.key,
   });
 
   @override
+  State<FeaturedBooksListViewBlocBuilder> createState() => _FeaturedBooksListViewBlocBuilderState();
+}
+
+class _FeaturedBooksListViewBlocBuilderState extends State<FeaturedBooksListViewBlocBuilder> {
+  List<BookEntity>books=[];
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
+    return BlocConsumer<FeaturedBooksCubit, FeaturedBooksState>(
+      listener: (context, state) => {
+        if(state is FeaturedBooksSuccess)
+        {
+          books.addAll(state.books)
+        },
+         if(state is FeaturedBooksPaginationFailure)
+          {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.errMessage),
+              backgroundColor: Colors.red,
+            ))
+          }
+
+      },
       builder: (context, state) {
-        if (state is FeaturedBooksSuccess) {
-          return const BooksListView();
+        if (state is FeaturedBooksSuccess|| state is FeaturedBooksPaginationLoading ||state is FeaturedBooksPaginationFailure) {
+          return  BooksListView(
+            books:books,
+          );
         }
         if (state is FeaturedBooksFailure) {
           return Center(child: Text(state.message.toString()));

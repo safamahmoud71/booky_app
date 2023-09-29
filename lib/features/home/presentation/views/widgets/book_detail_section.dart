@@ -8,33 +8,36 @@ import 'book_detail_button_action.dart';
 import 'book_rate.dart';
 
 class BookDetailsSection extends StatelessWidget {
-  const BookDetailsSection({super.key});
-
+  const BookDetailsSection({super.key, required this.title, required this.author});
+final String title;
+final String author;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
+
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.14),
-          child: const BookContainer(),
+          child: const BookContainer(image: ''),
         ),
-        const Text(
-          'The Jungle Book',
+         Text(
+          title,
           style: TextStyles.textStyle30,
         ),
         SizedBox(
           height: height * .01,
         ),
         Text(
-          'Rudyard Kipling',
+          author,
           style: TextStyles.textStyle18.copyWith(color: AppColors.grey),
         ),
         SizedBox(
           height: height * .03,
         ),
-        const BookRate(
+         BookRate(rate: 6,
           horizontal: MainAxisAlignment.center,
         ),
         const BookDetailButtonAction(),

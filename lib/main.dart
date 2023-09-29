@@ -21,10 +21,10 @@ import 'constants.dart';
 import 'features/home/domain/entities/book_entity.dart';
 
 void main() async {
-  Hive.registerAdapter(BookEntityAdapter());
-  Hive.close();
   await Hive.initFlutter();
-  await Hive.openBox(kFeaturedBox);
+  Hive.registerAdapter(BookEntityAdapter());
+
+  await Hive.openBox<BookEntity>(kFeaturedBox);
   await Hive.openBox(kNewestBox);
   Bloc.observer = SimpleBlocObserver();
   getIt.registerSingleton(
@@ -58,9 +58,10 @@ class BooklyApp extends StatelessWidget {
             ..featuredBooks();
         }),
         BlocProvider(create: (context) {
-          return NewestBooksCubit(FetchNewestBooks(
-            getIt.get(),
-          ));
+          return NewestBooksCubit(FetchNewestBooksUseCase(
+           HomeRepoImpl(homeLocalDataSource: HomeLocalDataSourceImplemenation(),
+           homeRemoteDataSource: HomeRemoteDataSourceImplementation(ApiServices(dio: Dio())))
+          ))..newestBooks();
         })
       ],
       child: MaterialApp.router(
